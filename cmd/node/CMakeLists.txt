@@ -22,10 +22,14 @@ target_sources(${CmdName}
         UrlRouter.cc
 )
 
+if (IsUnixPlatform)
+    set(PlatformSpecificLibs
+            ArrasCore::execute)
+endif()
+
 target_link_libraries(${CmdName}
     PUBLIC
         ArrasCore::shared_impl
-        ArrasCore::execute
         ArrasCore::http
         ArrasCore::httpserver
         ArrasCore::arras4_log
@@ -34,6 +38,7 @@ target_link_libraries(${CmdName}
         Boost::program_options
         Boost::filesystem
         pthread
+        ${PlatformSpecificLibs}
 )
 
 if(IsDarwinPlatform)

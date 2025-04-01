@@ -39,14 +39,19 @@ target_include_directories(${LibName}
         $<INSTALL_INTERFACE:include>
 )
 
+if (IsUnixPlatform)
+    set(PlatformSpecificLibs
+            ArrasCore::execute)
+endif()
+
 target_link_libraries(${LibName}
     PUBLIC
         ArrasCore::arras4_log
-        ArrasCore::execute
         ArrasCore::shared_impl
         ArrasCore::core_messages
         ArrasCore::network
         ArrasNode::node_messages
+        ${PlatformSpecificLibs}
 )
 
 if(IsDarwinPlatform)
